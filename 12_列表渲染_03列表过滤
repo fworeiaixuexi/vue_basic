@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>列表过滤</title>
+    <!--    引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!--  准备好一个容器-->
+    <div id="demo">
+<!--      遍历数组-->
+      <h2>人员列表(遍历数组)</h2>
+        <input type="text" placeholder="请输入名字" v-model="keyWord">
+      <ul>
+        <li v-for="(p,index) of filePersons" :key="index">
+          {{p.name}}-{{p.age}}
+        </li>
+      </ul>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示
+
+    //用watch实现
+    // new Vue({
+    //     el:'#demo',
+    //     data: {
+    //         keyWord:'',
+    //         persons: [
+    //             {id: '001', name: '马冬梅', age: '18'},
+    //             {id: '002', name: '周冬雨', age: '19'},
+    //             {id: '003', name: '周杰伦', age: '20'},
+    //             {id: '004', name: '温兆伦', age: '21'},
+    //         ],
+    //         filePersons:[]
+    //     },
+    //     watch:{
+    //         keyWord:{
+    //             immediate: true,
+    //             handler(val){
+    //                 this.filePersons = this.persons.filter((p)=>{  //filter过滤
+    //                     return p.name.indexOf(val) !==-1
+    //                 })
+    //             }
+    //         }
+    //     }
+    // })
+
+    //用computed实现
+    new Vue({
+        el:'#demo',
+        data: {
+            keyWord:'',
+            persons: [
+                {id: '001', name: '马冬梅', age: '18'},
+                {id: '002', name: '周冬雨', age: '19'},
+                {id: '003', name: '周杰伦', age: '20'},
+                {id: '004', name: '温兆伦', age: '21'},
+            ]
+        },
+       computed:{
+            filePersons(){
+                 return this.persons.filter((p)=>{  //filter过滤
+                     return p.name.indexOf(this.keyWord) !==-1
+                 })
+            }
+       }
+    })
+  </script>
+</html>
